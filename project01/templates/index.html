@@ -1,0 +1,46 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+<title>login</title>
+<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+</head>
+
+<body>
+	<div class="rounded-border" align="center" >
+	<img class="logo" src="../static/img/logo2.0.png" alt="" >
+    <form method="post" action="/login_form/">
+        {% csrf_token %}
+        <div class="border-1"><input class="input" type="text" placeholder="请输入账号" name="account" /></div>
+        <div class="border-2"><input class="input" type="password" name="password" placeholder="请输入密码" /></div>
+        <input type="submit" value="登录" style=" border: 1px solid #000; border-radius: 10px; margin-top: 110px; margin-left: -210px; position:absolute;  width:340px; height:40px; background:#27B041; text-decoration:none;">
+	</form>
+        <div class="border-4" align="center" ><button class="register" id="register"><p>+</p></button></div><p style="color: white;">新用户注册</p>
+
+    </div>
+
+    <dialog>
+    <p align="center" class="line-1">冒险者，欢迎你！请你填写信息完成注册</p>
+    <br/><br/>
+    <form class="form-2" method="post" action="/register/">
+        {% csrf_token %}
+        <p style="float: left;margin-left: 5px;">姓名：</p>
+        <div class="border-5" align="center"><input class="input" type="text" placeholder="冒险者，请输入姓名！" name="name" /></div>
+        <br/><br/>
+        <p style="float: left;margin-left: 5px;">密码：</p>
+        <div class="border-6" align="center"><input class="input" type="password" name="password" placeholder="请输入密码" /></div>
+{#        <div class="border-7" align="center" ><a class="button" href=""><p class="register"  style="margin-top: 5px;font-size:18px;">注册</p></a></div>#}
+        <input type="submit" value="注册" style=" border: 1px solid #000; border-radius: 10px; margin-top: 42px; margin-left: -47px; position:absolute;  width:340px; height:40px; background:#27B041; text-decoration:none;">
+    </form>
+        <img src="../static/img/loading.gif" id="loading" class="loading" style="width:20px;vertical-align:middle;"/>
+    <p class="your-id" align="center">恭喜你喜提账号：<b>{{user.id}}</b>，请务必牢记账号，将用于今后的登陆哦</p>
+
+
+    </dialog>
+    <script src="../static/js/index.js"></script>
+
+
+</body>
+</html>

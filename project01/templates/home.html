@@ -1,0 +1,362 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+<title>home</title>
+
+</head>
+
+<body>
+
+<div id="head" class="head-1">  <!--整个首页--begin-->
+        <div id="header" class="header-1">  <!--最顶上的导航栏-->
+            <div id="logo"><img src="{% static 'img/logo2.0.png' %}" style="margin-top: 9px;" width="40" height="40" alt=""/></div>
+            <ul class="menu" style="line-height: 40px;">
+                <li><a href="/home/" class="mylink">首页</a></li>
+                <li><a href="/visualization/" class="mylink">任务</a></li>
+                {#                <li><a href="*" class="mylink">地图探索</a></li>#}
+                <li><a href="/equipment/" class="mylink">装备</a></li>
+                {#              <li><a href="@" class="mylink">成就系统</a></li>#}
+                <li class="li2"><a href="/visualization/ability/"  class="mylink">数据可视化</a></li>
+            </ul>
+        </div>
+    </div>          <!--整个首页--end-->
+{#<div id="head">#}
+{#	<img class="logo" src="../static/img/logo2.0.png" alt="" >#}
+{#	<ul class="w-nav" navstyle="style7" style="width:auto;">#}
+{#		<div class="item">#}
+{#    	<a href="/rw" target="_self" class="w-nav-item-link">#}
+{#            <span class="w-link-txt"><b>任务</b></span>#}
+{#		</a></div>#}
+{#		<div class="item">#}
+{#    	<a href="/rw" target="_self" class="w-nav-item-link">#}
+{#            <span class="w-link-txt"><b>物品栏</b></span>#}
+{#		</a></div>#}
+{#		<div class="item">#}
+{#    	<a href="/rw" target="_self" class="w-nav-item-link">#}
+{#            <span class="w-link-txt"><b>队伍</b></span>#}
+{#		</a></div>#}
+{#		<div class="item">#}
+{#    	<a href="/rw" target="_self" class="w-nav-item-link">#}
+{#            <span class="w-link-txt"><b>团队</b></span>#}
+{#		</a></div>#}
+{#		<div class="item">#}
+{#    	<a href="/rw" target="_self" class="w-nav-item-link">#}
+{#            <span class="w-link-txt"><b>挑战</b></span>#}
+{#		</a></div>#}
+{#		<div class="item">#}
+{#    	<a href="/rw" target="_self" class="w-nav-item-link">#}
+{#            <span class="w-link-txt"><b>帮助</b></span>#}
+{#		</a></div>#}
+{#		<div class="item">#}
+{#    	<a href="/rw" target="_self" class="w-nav-item-link">#}
+{#            <span class="w-link-txt"><b>商店</b></span>#}
+{#		</a></div>#}
+{#		#}
+{#	</ul>		#}
+{#</div>#}
+<div class="user" align="center">
+	<div class="rounded-border"  >
+		<div class="user-data">
+			<img src="../static/img/li1.png" alt="">
+			<span class="user-name"><b>用户：{{user.name}}</b></span>
+			<span class="user-level">@{{user.name}} · 等级{{user.rank}} 初级战士</span>
+			<br/>
+			<span class="user-life">生命值：{{ user.blood }}/100</span>
+			<br/>
+			<span class="user-grade">经验值：{{ user.experience }}/*** </span>
+		</div>	
+	</div>
+</div>
+<div class="tasks">
+	<div class="habit">
+		<span><b class="txt">习惯</b></span>
+        <div class="add-new">
+        <button class="add-habit" id="add-habit-1"><img src="../static/img/Icon.png"></button>
+        </div>
+        <dialog class="dialog-0">
+            <h4 align="center" style="color: #3D1D91;">正在建立新习惯...</h4>
+            <h4  style="color: #3D1D91;float:left;margin-top:16px;margin-left: 2px;">名称：</h4>
+            <div class="add-frame">
+                <input class="input" type="text" align="center" placeholder="请输入新习惯" name="habit" />
+            </div>
+            <h4  style="color: #3D1D91;float:left;margin-top:16px;margin-left: 2px;">起始时间：</h4>
+            <div class="add-frame">
+                <input class="input" type="text" align="center" placeholder="请输入新习惯起始时间" name="begin" />
+            </div>
+            <h4  style="color: #3D1D91;float:left;margin-top:16px;margin-left: 2px;">终止时间：</h4>
+            <div class="add-frame">
+                <input class="input" type="text" align="center" placeholder="请输入新习惯终止时间" name="end" />
+            </div>
+            <img src="../static/img/loading.gif" alt="" id="loading" align="center"  class="loading" style="text-align:center;margin-top:-8px; margin-left: 5px; width: 20%;float:left"/>
+            <div class="add-new-habit" align="center" ><button align="center" class="add-button" id="add-button"><h3><b>OK</b></h3></button></div>
+        </dialog>
+        <script>
+          var btn = document.querySelector('button')
+          var dialog = document.querySelector('dialog')
+          btn.addEventListener('click', () => {
+            dialog.show()
+          })
+            var x = document.getElementById("add-button");
+            var dialog = document.querySelector('dialog')
+            x.addEventListener('click', () => {
+            dialog.close()
+          })
+        </script>
+        <div class="new-task" >
+        <h3 class="task-txt">&nbsp; &nbsp;一定早起</h3>
+        <h5 class="date" id="today-1">12月12日</h5>
+            <input class="checkbox" type="checkbox" name="get-up-early" value="task"  >
+        </div><div class="new-task">
+        <h3 class="task-txt">&nbsp; &nbsp;喝水2L</h3>
+        <h5 class="date" id="today-2">12月12日</h5>
+        <input class="checkbox" type="checkbox" name="drink" value="task"  >
+        </div><div class="new-task">
+        <h3 class="task-txt">&nbsp; 坚持早睡</h3>
+        <h5 class="date" id="today-3">12月18日</h5>
+        <input class="checkbox" type="checkbox" name="sleep-early" value="task"  >
+        </div>
+      <div class="new-task">
+        <h3 class="task-txt">&nbsp; &nbsp;省吃俭用</h3>
+        <h5 class="date" id="today-4">12月18日</h5><input class="checkbox" type="checkbox" name="save-money" value="task"  >
+        </div>
+        <script>
+        // 获取当前日期
+        var currentDate = new Date();
+
+        // 获取年、月、日
+        var year = currentDate.getFullYear();
+        var month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        var day = String(currentDate.getDate()).padStart(2, '0');
+
+        // 格式化日期并赋给每个元素
+        document.getElementById("today-1").innerHTML = year + '年' + month + '月' + day + '日';
+        document.getElementById("today-2").innerHTML = year + '年' + month + '月' + day + '日';
+        document.getElementById("today-3").innerHTML = year + '年' + month + '月' + day + '日';
+        document.getElementById("today-4").innerHTML = year + '年' + month + '月' + day + '日';
+        </script>
+	</div>
+<div class="daily">
+	<span><b class="txt">每日任务</b></span><div class="add-new">
+       <button class="add-1" id="add-1"><img src="../static/img/Icon.png"></button>
+        </div>
+<form method="post" action="/newtasks/">
+    {% csrf_token %}
+    <dialog class="dialog-1" id="dialog-1">
+            <h4 align="center" style="color: #3D1D91;">正在建立新任务...</h4>
+            <h4  style="color: #3D1D91;float:left;margin-top:16px;margin-left: 2px;">名称：</h4>
+            <div class="add-frame">
+                <input class="input" type="text" align="center" placeholder="请输入新任务" name="name" />
+            </div>
+            <h4  style="color: #3D1D91;float:left;margin-top:16px;margin-left: 2px;">起始时间：</h4>
+            <div class="add-frame">
+                <input class="input" type="text" align="center" placeholder="请输入新任务起始时间" name="begin" />
+            </div>
+            <h4  style="color: #3D1D91;float:left;margin-top:16px;margin-left: 2px;">终止时间：</h4>
+            <div class="add-frame">
+                <input class="input" type="text" align="center" placeholder="请输入新任务终止时间" name="end" />
+            </div>
+            <img src="../static/img/loading.gif" alt="" id="loading-1" align="center"  class="loading" style="text-align:center;margin-top:-8px; margin-left: 5px; width: 20%;float:left"/>
+           <div class="add-new-habit" align="center" ><input type="submit" value="OK" style="color:white;line-height: 35px;font-size: 18px;" align="center" class="add-button" id="add-button-2"></div>
+        </dialog>
+</form>
+    <script>
+          var btn1 = document.getElementById('add-1')
+          var dialog1 = document.getElementById('dialog-1')
+          btn1.addEventListener('click', () => {
+            dialog1.show()
+          })
+            var y = document.getElementById("add-button-1");
+            var dialog1 = document.getElementById('dialog-1')
+            y.addEventListener('click', () => {
+            dialog1.close()
+          })
+        </script>
+    {% for item in user.tasks.all|slice:":4" %}
+        <div class="new-task">
+            <h3 class="task-txt">&nbsp; &nbsp;{{item}}</h3>
+            <h5 class="date">{{item.begin}}<br/>至{{item.end}}</h5>
+            <input class="checkbox" type="checkbox" name="{{ item.id }}" value="task" onchange="handleCheckboxChange{{ item.id }}()">
+        </div>
+        <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+        <script>
+            function handleCheckboxChange{{ item.id }}() {
+                checkbox=document.getElementsByName({{ item.id }})[0]
+                console.log(checkbox)
+                console.log('复选框{{ item.id }}状态已更改！');
+                checkbox.disabled = true;
+                var rN = Math.floor(Math.random() * 101) + 10;
+                var jl = Math.round(Math.random());
+                {#var data={"csrfmiddlewaretoken":$('input[name=csrfmiddlewaretoken]').val(),"rN":rN,"jl":jl}#}
+                var choice=["金币","经验值"]
+                alert("已完成今日打卡！请领取奖励！\n "+choice[jl]+"* "+ rN)
+                {#$.ajax({#}
+                {#    url: '/jiangli/',  // 替换为你的后端接收数据的URL#}
+                {#    type: 'POST',  // 使用POST方法发送数据#}
+                {#    data: {#}
+                {#        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),  // 获取表单中的CSRF令牌#}
+                {#        jl: jl,#}
+                {#        rN: rN#}
+                {#    },#}
+                {#    success: function(response) {#}
+                {#        // 请求成功后的回调函数#}
+                {#        console.log('Data sent successfully:', response);#}
+                {#    },#}
+                {#    error: function(error) {#}
+                {#        // 请求失败后的回调函数#}
+                {#        console.log('Error sending data:', error);#}
+                {#    }#}
+                {#});  //将jl和rN的值传到后端#}
+                    fetch("/jiangli/", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val(), // Django CSRF token, if needed
+                        },
+                        body: JSON.stringify({ jl: jl, rN: rN ,task_id:{{item.id }},todo_id:0 }),
+                    })
+                        .then(response => response.json()) // 解析响应为JSON，如果需要的话
+                        .then(data => { /* 处理响应数据 */ })
+                        .catch((error) => { /* 处理错误 */ });
+            }
+        </script>
+    {% endfor %}
+{#    <script>#}
+{#        console.log("OK ")#}
+{#        console.log({{ user.tasks.0.name }})#}
+{#    </script>#}
+{#    <div class="new-task">#}
+{#        <h3 class="task-txt">&nbsp; &nbsp;{% for item in user.tasks.all %}{% if item.id == 16 %}{{item}}{% endif %}{% endfor %}</h3>#}
+{#        <h5 class="date">12月18日</h5><input class="checkbox" type="checkbox" name="love" value="task"  >#}
+{#        </div><div class="new-task">#}
+{#        <h3 class="task-txt">&nbsp; &nbsp;{% for item in user.tasks.all %}{% if item.id == 17 %}{{item}}{% endif %}{% endfor %}</h3>#}
+{#        <h5 class="date">12月18日</h5><input class="checkbox" type="checkbox" name="love" value="task"  >#}
+{#        </div>#}
+{#        <div class="new-task">#}
+{#        <h3 class="task-txt">&nbsp; &nbsp;{% for item in user.tasks.all %}{% if item.id == 18 %}{{item}}{% endif %}{% endfor %}</h3>#}
+{#        <h5 class="date">12月18日</h5><input class="checkbox" type="checkbox" name="love" value="task"  >#}
+{#  </div>#}
+</div>
+<div class="to-do">
+	<span><b class="txt">待办事项</b></span><div class="add-new">
+       <button class="add-2" id="add-2"><img src="../static/img/Icon.png"></button>
+        </div>
+<form method="post" action="/newtodos/">
+    {% csrf_token %}
+    <dialog class="dialog-2" id="dialog-2">
+            <h4 align="center" style="color: #3D1D91;">正在建立新待办...</h4>
+            <h4  style="color: #3D1D91;float:left;margin-top:16px;margin-left: 2px;">名称：</h4>
+            <div class="add-frame">
+                <input class="input" type="text" align="center" placeholder="请输入新待办" name="name" />
+            </div>
+            <h4  style="color: #3D1D91;float:left;margin-top:16px;margin-left: 2px;">待办时间：</h4>
+            <div class="add-frame">
+                <input class="input" type="text" align="center" placeholder="请输入新待办时间" name="date" />
+            </div>
+            <img src="../static/img/loading.gif" alt="" id="loading-2" align="center"  class="loading" style="text-align:center;margin-top:-8px; margin-left: 5px; width: 20%;float:left"/>
+            <div class="add-new-habit" align="center" ><input type="submit" value="OK" style="color:white;line-height: 35px;font-size: 18px;" align="center" class="add-button" id="add-button-2"></div>
+        </dialog>
+</form>
+    <script>
+          var btn2 = document.getElementById('add-2')
+          var dialog2 = document.getElementById('dialog-2')
+          btn2.addEventListener('click', () => {
+            dialog2.show()
+          })
+            var z = document.getElementById("add-button-2");
+            var dialog2 = document.getElementById('dialog-2')
+            z.addEventListener('click', () => {
+            dialog2.close()
+          })
+        </script>
+    {% for item in undo.all|slice:":4" %}
+    <div class="new-task">
+        <h3 class="task-txt">&nbsp; &nbsp;{{ item }}</h3>
+        <h5 class="date">{{ item.date }}</h5><input class="checkbox" type="checkbox" name="todo{{ item.id }}" value="task" onchange="handleCheckboxChange_todo{{ item.id }}()">
+        </div>
+        <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+        <script>
+            function handleCheckboxChange_todo{{ item.id }}() {
+                checkbox=document.getElementsByName("todo{{ item.id }}")[0]
+                console.log(checkbox)
+                console.log('复选框 todo{{ item.id }}状态已更改！');
+                checkbox.disabled = true;
+                var rN = Math.floor(Math.random() * 101) + 10;
+                var jl = Math.round(Math.random());
+                {#var data={"csrfmiddlewaretoken":$('input[name=csrfmiddlewaretoken]').val(),"rN":rN,"jl":jl}#}
+                var choice=["金币","经验值"]
+                alert("已完成待办！请领取奖励！\n "+choice[jl]+"* "+ rN)
+                    fetch("/jiangli/", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val(), // Django CSRF token, if needed
+                        },
+                        body: JSON.stringify({ jl: jl, rN: rN ,task_id:0, todo_id:{{item.id }} }),
+                    })
+                        .then(response => response.json()) // 解析响应为JSON，如果需要的话
+                        .then(data => { /* 处理响应数据 */ })
+                        .catch((error) => { /* 处理错误 */ });
+                }
+        </script>
+    {% endfor %}
+{#    <div class="new-task">#}
+{#        <h3 class="task-txt">&nbsp; &nbsp;{% for item in user.tasks.all %}{% if item.id == 20 %}{{item}}{% endif %}{% endfor %}</h3>#}
+{#        <h5 class="date">12月18日</h5><input class="checkbox" type="checkbox" name="love" value="task"  >#}
+{#        </div><div class="new-task">#}
+{#        <h3 class="task-txt">&nbsp; &nbsp;{% for item in user.tasks.all %}{% if item.id == 1 %}{{item}}{% endif %}{% endfor %}</h3>#}
+{#        <h5 class="date">12月18日</h5><input class="checkbox" type="checkbox" name="love" value="task"  >#}
+{#        </div>#}
+{#        <div class="new-task">#}
+{#        <h3 class="task-txt">&nbsp; &nbsp;{% for item in user.tasks.all %}{% if item.id == 12 %}{{item}}{% endif %}{% endfor %}</h3>#}
+{#        <h5 class="date">12月16日</h5><input class="checkbox" type="checkbox" name="love" value="task"  >#}
+{#  </div>#}
+</div>
+<div class="reward">
+	<span><b class="txt">奖励</b></span><div class="add-new">
+        <img id="button-unsee" src="../static/img/Icon.png">
+        </div>
+    <div class="new-task">
+        <h3 class="task-txt">&nbsp; &nbsp;经验*1000</h3>
+{#        <h5 class="date">12月18日</h5>#}
+{#    <input class="checkbox" type="checkbox" name="love" value="task" checked >#}
+        </div>
+    <div class="new-task">
+        <h3 class="task-txt">&nbsp; &nbsp;金币*10</h3>
+{#        <h5 class="date">12月18日</h5>#}
+{#    <input class="checkbox" type="checkbox" name="love" value="task"  >#}
+        </div><div class="new-task">
+        <h3 class="task-txt">&nbsp; &nbsp;经验*2000</h3>
+{#        <h5 class="date">12月18日</h5>#}
+{#    <input class="checkbox" type="checkbox" name="love" value="task"  >#}
+        </div>
+        <div class="new-task">
+        <h3 class="task-txt">&nbsp; &nbsp;金币*100</h3>
+{#        <h5 class="date">12月18日</h5>#}
+{#            <input class="checkbox" type="checkbox" name="love" value="task"  >#}
+  </div></div>
+</div>
+<div class="partners">
+	<h2 class="title">&nbsp;&nbsp;你的伙伴:</h2>
+  <div class="partner-1" onclick="window.location.href='/npcchoice/0/'">
+    <img src="../static/img/fulilian.png" alt="">
+    </div>
+<div class="partner-1" onclick="window.location.href='/npcchoice/1/'">
+    <img src="../static/img/xin.png" alt="">
+</div>
+<div class="partner-2" onclick="window.location.href='/npcchoice/2/'">
+    <img class="feilun" src="../static/img/feilun.png" alt="">
+</div>
+  <div class="partner-1" onclick="window.location.href='/npcchoice/3/'">
+     <img src="../static/img/stark.png" alt="">
+</div>
+</div> 
+	<h3 class="haogandu-1">好感度:40</h3>
+    <h3 class="haogandu">好感度:20</h3>
+    <h3 class="haogandu">好感度:40&nbsp;&nbsp;</h3>
+    <h3 class="haogandu">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好感度:40</h3>
+</body>
+</html>

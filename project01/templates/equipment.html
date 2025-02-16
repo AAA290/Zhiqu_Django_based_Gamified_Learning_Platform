@@ -1,0 +1,625 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style1.css' %}">
+    <title>Gamify your study</title>
+    <style>
+        .box {
+            margin-left: 5px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            width: 19%;
+            height: 200px;
+            border-radius: 20px;
+            background-color: #b0e16a;
+            transition: 0.6s;
+        }
+        .box .imgBox {
+            overflow: hidden;
+            position: absolute;
+            top: 0.1%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            height: 120px;
+            border-radius: 20px;
+            transition: 0.6s;
+        }
+        .box .imgBox img {
+            width: 100%;
+            height: 80%;
+        }
+        .box .content {
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            width: 100%;
+            height: 100%;
+        }
+        .box .content .text-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transform: translateY(110px);
+            width: 100%;
+            height: 190px;
+            padding: 20px 40px;
+            transition: 0.6s;
+        }
+        .box .content .text-content .title {
+            text-align: center;
+
+        }
+        {#.box .content .text-content .title:hover {#}
+        {#  text-align: center;#}
+        {#    margin-top: 10px;#}
+
+        .box .content .text-content .title p {
+            margin-top: 0;
+            font-size: 10px;
+            color: #707070;
+        }
+        .box .content .text-content .date {
+            display: flex;
+            justify-content: space-between;
+        }
+        .box .content .text-content .date .date-text {
+            text-align: center;
+        }
+        .box .content .text-content .date .date-text p {
+            font-size: 12px;
+            color: #707070;
+        }
+        .box .content .text-content .btn {
+            display: flex;
+            justify-content: space-between;
+        }
+        .box .content .text-content .btn input {
+            width: 100px;
+            height: 35px;
+            border: none;
+            border-radius: 5px;
+            background-color: #e0a611;
+            color: #fff;
+        }
+        .box .content .text-content .btn input:nth-child(2) {
+            color: #a2a2a2;
+            border: 1px solid #a2a2a2;
+            background-color: #fff;
+        }
+        .box:hover {
+            height: 400px;
+        }
+        .box:hover .imgBox {
+            transform: translateX(-50%);//注意保持与初始translate一致
+        width: 200px;
+            height: 200px;
+        }
+        .box:hover .content .text-content {
+            transform: translateY(0px);
+
+        }
+    </style>
+</head>
+
+<body>
+<link href="{% static 'css/calendar.css' %}" rel="stylesheet" type="text/css">
+<div id="head">  <!--整个首页--begin-->
+    <div id="header">  <!--最顶上的导航栏-->
+        <div id="logo"><img src="{% static 'img/logo1.0.png' %}" width="40" height="40" alt=""/></div>
+        <ul class="menu">
+            <li><a href="/home/" class="mylink">首页</a></li>
+            <li><a href="/visualization/" class="mylink">任务</a></li>
+            {#                <li><a href="*" class="mylink">地图探索</a></li>#}
+            <li><a href="/equipment/" class="mylink">装备</a></li>
+            {#              <li><a href="@" class="mylink">成就系统</a></li>#}
+            <li class="li2"><a href="/visualization/ability/"  class="mylink">数据可视化</a></li>
+        </ul>
+    </div>
+</div>          <!--整个首页--end-->
+
+<div ID="second">
+    <!--待补充-->
+    <div style="background-color: #e0a611; font-size:12pt;  width:100%; height:100%; ">
+        <div id="middlesw">
+            <span tabindex="0" role="button"><img src="{% static 'img/li1.png' %}" width="100%" height="auto" alt=""/></span>
+        </div>
+        <div style="margin-left: 20%; margin-top:1%; font-size: 110%;">
+            {{user.name}}<br>
+            等级{{user.rank}}<br>
+        </div>
+        <div id="chart1" style="margin-left: 10%; height:40%; width: 100%"><br></div>
+        <div id="chart2" style="margin-left: 10%; height:40%; width: 100%"><br></div>
+        <script type="text/javascript" src="{% static 'js/echarts.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+        <script type="text/javascript">
+            function generatechartpanel(panelId,name,data){
+                var dom = document.getElementById(panelId);
+                var myChart = echarts.init(dom);
+                var option;
+                var app ={};
+                option = {
+                    grid: {
+                        show: false,
+                        left: '5%',
+                        right: '70%',
+                        bottom: '5%',
+                        top: '10%',
+                        containLabel: true,
+                    },
+                    backgroundColor: 'transparent',
+                    xAxis: {
+                        show: false,
+                        type: 'value',
+                        max: 100,
+                    },
+                    tooltip:{
+                        show:true,
+                        formatter: '{b}:{c}%'
+                    },
+                    yAxis:
+                        {
+                            type: 'category',
+                            inverse: true,
+                            axisLabel: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '12',
+                                    color: '#03fcfe',
+                                },
+                            },
+                            splitLine: {
+                                show: false,
+                            },
+                            axisTick: {
+                                show: false,
+                            },
+                            axisLine: {
+                                show: false,
+                            },
+                            data: [name],
+                        },
+
+                    series: [
+                        {
+                            type: 'bar',
+                            showBackground: true,
+                            backgroundStyle: {
+                                color: 'rgba(5, 4, 0, 0.537)',
+                                borderRadius:20
+                            },
+                            label:{
+                                show:true,
+                                position:'right',
+                                distance: 0,
+                                formatter:'{insideTopRight|▲}{Right|{@[0]}%}',
+                                rich: {
+                                    Right: {
+                                        color: '03fcfe',
+                                        //width: 0,
+                                        fontSize: '13',// 3
+                                        verticalAlign:'middle'
+                                    },
+                                    insideTopRight: {
+                                        color: 'white',
+                                        align: 'right'  ,
+                                        width: 0,
+                                        verticalAlign: "bottom",
+                                        lineHeight: 30 ,
+                                        fontSize: '10'
+                                    }
+                                }
+                            },
+
+                            itemStyle: {
+                                normal: {
+                                    barBorderRadius: 20,
+                                    color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
+                                        {
+                                            offset: 0,
+                                            color: '#1badf9',
+                                        },
+                                        {
+                                            offset: 1,
+                                            color: '#03fcfe',
+                                        },
+                                    ]),
+                                },
+                            },
+                            barWidth: 5,
+                            data: [data]
+                        },
+                    ],
+                };
+                if (option && typeof option === 'object') {
+                    myChart.setOption(option);
+                }
+            }
+            var xueValue = {{ user.blood }};
+            var experience={{ user.experience }};
+            generatechartpanel("chart1", "血量", xueValue);
+            generatechartpanel("chart2", "经验值", experience);
+        </script>
+    </div>
+
+    <div id="dashboard" style="width: 100%">
+
+        <div id="big_base2_ability" style="width:90%; left: 5%;">
+            <div class="small_base">
+                <div class="box">
+                    <div class="imgBox"><img src="../static/img/00.png" alt=""></div>
+                    <div class="content">
+                        <div class="text-content">
+                            <div class="title">
+                                <h4>{% for item in eq.all %}{% if item.id == 10 %}{{item.name}}</h4>
+                                    <p>{{ item.description }}</p>
+                                    </div>
+                                    <div class="date">
+                                    <div class="date-text">
+                                        <h5>攻击值</h5>
+                                        <p>{{ item.attack_power }}</p>
+                                    </div>
+                                    <div class="date-text">
+                                        <h5>防御值</h5>
+                                        <p>{{ item.defense_power }}</p>
+                                    </div>
+                                    <div class="date-text">
+                                        <h5>等级</h5>
+                                        <p>{{ item.level }}</p>
+                                    </div>
+                                </div>
+                            <div class="btn">
+                                    {% if item in user.equipements.all %}
+                                        <input type="button" value="已拥有">
+                                    {% else %}
+                                        <input type="button" value="花费{{ item.value }}金币购买" onclick="window.location.href='/buy_item/{{ item.id }}/'">
+                                    {% endif %}
+                                {% endif %}{% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgBox"><img src="../static/img/01.png" alt=""></div>
+                    <div class="content">
+                        <div class="text-content">
+                            <div class="title">
+                                <h4>{% for item in eq.all %}{% if item.id == 9 %}{{item.name}}</h4>
+                                    <p>{{ item.description }}</p>
+                                    </div>
+                                    <div class="date">
+                                    <div class="date-text">
+                                        <h5>攻击值</h5>
+                                        <p>{{ item.attack_power }}</p>
+                                    </div>
+                                    <div class="date-text">
+                                        <h5>防御值</h5>
+                                        <p>{{ item.defense_power }}</p>
+                                    </div>
+                                    <div class="date-text">
+                                        <h5>等级</h5>
+                                        <p>{{ item.level }}</p>
+                                    </div>
+                                    </div>
+                                    <div class="btn">
+                                    {% if item in user.equipements.all %}
+                                        <input type="button" value="已拥有">
+                                    {% else %}
+                                        <input type="button" value="花费{{ item.value }}金币购买" onclick="window.location.href='/buy_item/{{ item.id }}/'">
+                                    {% endif %}
+                                {% endif %}{% endfor %}
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgBox">
+                        <img src="../static/img/02.png" alt="">
+                    </div>
+                    <div class="content">
+                        <div class="text-content">
+                            <div class="title">
+                                <h4>{% for item in eq.all %}{% if item.id == 8 %}{{item.name}}</h4>
+                                    <p>{{ item.description }}</p>
+                                    </div>
+                                    <div class="date">
+                                    <div class="date-text">
+                                        <h5>攻击值</h5>
+                                        <p>{{ item.attack_power }}</p>
+                                    </div>
+                                    <div class="date-text">
+                                        <h5>防御值</h5>
+                                        <p>{{ item.defense_power }}</p>
+                                    </div>
+                                    <div class="date-text">
+                                    <h5>等级</h5>
+                                        <p>{{ item.level }}</p>
+                                    </div>
+                                    </div>
+                                    <div class="btn">
+                                    {% if item in user.equipements.all %}
+                                        <input type="button" value="已拥有">
+                                    {% else %}
+                                        <input type="button" value="花费{{ item.value }}金币购买" onclick="window.location.href='/buy_item/{{ item.id }}/'">
+                                    {% endif %}
+                                {% endif %}{% endfor %}
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgBox">
+                        <img src="../static/img/03.png" alt="">
+                    </div>
+                    <div class="content">
+                        <div class="text-content">
+                            <div class="title">
+                                <h4>{% for item in eq.all %}{% if item.id == 7 %}{{item.name}}</h4>
+                                    <p>{{ item.description }}</p>
+                                    </div>
+                                    <div class="date">
+                                    <div class="date-text">
+                                        <h5>攻击值</h5>
+                                        <p>{{ item.attack_power }}</p>
+                                    </div>
+                                    <div class="date-text">
+                                        <h5>防御值</h5>
+                                        <p>{{ item.defense_power }}</p>
+                                    </div>
+                                    <div class="date-text">
+                                    <h5>等级</h5>
+                                        <p>{{ item.level }}</p>
+                                    </div>
+                                    </div>
+                                    <div class="btn">
+                                    {% if item in user.equipements.all %}
+                                        <input type="button" value="已拥有">
+                                    {% else %}
+                                        <input type="button" value="花费{{ item.value }}金币购买" onclick="window.location.href='/buy_item/{{ item.id }}/'">
+                                    {% endif %}
+                                {% endif %}{% endfor %}
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgBox">
+                        <img src="../static/img/04.png" alt="">
+                    </div>
+                    <div class="content">
+                        <div class="text-content">
+                            <div class="title">
+                                <h4>{% for item in eq.all %}{% if item.id == 6 %}{{item.name}}</h4>
+                                    <p>{{ item.description }}</p>
+                                    </div>
+                                    <div class="date">
+                                    <div class="date-text">
+                                        <h5>攻击值</h5>
+                                        <p>{{ item.attack_power }}</p>
+                                    </div>
+                                    <div class="date-text">
+                                        <h5>防御值</h5>
+                                        <p>{{ item.defense_power }}</p>
+                                    </div>
+                                    <div class="date-text">
+                                    <h5>等级</h5>
+                                        <p>{{ item.level }}</p>
+                                    </div>
+                                    </div>
+                                    <div class="btn">
+                                    {% if item in user.equipements.all %}
+                                        <input type="button" value="已拥有">
+                                    {% else %}
+                                        <input type="button" value="花费{{ item.value }}金币购买" onclick="window.location.href='/buy_item/{{ item.id }}/'">
+                                    {% endif %}
+                                {% endif %}{% endfor %}
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="small_base">
+                <div class="box">
+                    <div class="imgBox">
+                        <img src="../static/img/05.png" alt="">
+                    </div>
+                    <div class="content">
+                        <div class="text-content">
+                            <div class="title">
+                                <h4>{% for item in eq.all %}{% if item.id == 5 %}{{item.name}}</h4>
+                                    <p>{{ item.description }}</p>
+                                    </div>
+                                    <div class="date">
+                                    <div class="date-text">
+                                        <h5>攻击值</h5>
+                                        <p>{{ item.attack_power }}</p>
+                                    </div>
+                                    <div class="date-text">
+                                        <h5>防御值</h5>
+                                        <p>{{ item.defense_power }}</p>
+                                    </div>
+                                    <div class="date-text">
+                                    <h5>等级</h5>
+                                        <p>{{ item.level }}</p>
+                                    </div>
+                                    </div>
+                                    <div class="btn">
+                                    {% if item in user.equipements.all %}
+                                        <input type="button" value="已拥有">
+                                    {% else %}
+                                        <input type="button" value="花费{{ item.value }}金币购买" onclick="window.location.href='/buy_item/{{ item.id }}/'">
+                                    {% endif %}
+                                {% endif %}{% endfor %}
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgBox">
+                        <img src="../static/img/06.png" alt="">
+                    </div>
+                    <div class="content">
+                        <div class="text-content">
+                            <div class="title">
+                                <h4>{% for item in eq.all %}{% if item.id == 4 %}{{item.name}}</h4>
+                                    <p>{{ item.description }}</p>
+                                    </div>
+                                    <div class="date">
+                                    <div class="date-text">
+                                        <h5>攻击值</h5>
+                                        <p>{{ item.attack_power }}</p>
+                                    </div>
+                                    <div class="date-text">
+                                        <h5>防御值</h5>
+                                        <p>{{ item.defense_power }}</p>
+                                    </div>
+                                    <div class="date-text">
+                                    <h5>等级</h5>
+                                        <p>{{ item.level }}</p>
+                                    </div>
+                                    </div>
+                                    <div class="btn">
+                                    {% if item in user.equipements.all %}
+                                        <input type="button" value="已拥有">
+                                    {% else %}
+                                        <input type="button" value="花费{{ item.value }}金币购买" onclick="window.location.href='/buy_item/{{ item.id }}/'">
+                                    {% endif %}
+                                {% endif %}{% endfor %}
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgBox">
+                        <img src="../static/img/07.png" alt="">
+                    </div>
+                    <div class="content">
+                        <div class="text-content">
+                            <div class="title">
+                                <h4>{% for item in eq.all %}{% if item.id == 3 %}{{item.name}}</h4>
+                                    <p>{{ item.description }}</p>
+                                    </div>
+                                    <div class="date">
+                                    <div class="date-text">
+                                        <h5>攻击值</h5>
+                                        <p>{{ item.attack_power }}</p>
+                                    </div>
+                                    <div class="date-text">
+                                        <h5>防御值</h5>
+                                        <p>{{ item.defense_power }}</p>
+                                    </div>
+                                    <div class="date-text">
+                                    <h5>等级</h5>
+                                        <p>{{ item.level }}</p>
+                                    </div>
+                                    </div>
+                                    <div class="btn">
+                                    {% if item in user.equipements.all %}
+                                        <input type="button" value="已拥有">
+                                    {% else %}
+                                        <input type="button" value="花费{{ item.value }}金币购买" onclick="window.location.href='/buy_item/{{ item.id }}/'">
+                                    {% endif %}
+                                {% endif %}{% endfor %}
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgBox">
+                        <img src="../static/img/08.png" alt="">
+                    </div>
+                    <div class="content">
+                        <div class="text-content">
+                            <div class="title">
+                                <h4>{% for item in eq.all %}{% if item.id == 2 %}{{item.name}}</h4>
+                                    <p>{{ item.description }}</p>
+                                    </div>
+                                    <div class="date">
+                                    <div class="date-text">
+                                        <h5>攻击值</h5>
+                                        <p>{{ item.attack_power }}</p>
+                                    </div>
+                                    <div class="date-text">
+                                        <h5>防御值</h5>
+                                        <p>{{ item.defense_power }}</p>
+                                    </div>
+                                    <div class="date-text">
+                                    <h5>等级</h5>
+                                        <p>{{ item.level }}</p>
+                                    </div>
+                                    </div>
+                                    <div class="btn">
+                                    {% if item in user.equipements.all %}
+                                        <input type="button" value="已拥有">
+                                    {% else %}
+                                        <input type="button" value="花费{{ item.value }}金币购买" onclick="window.location.href='/buy_item/{{ item.id }}/'">
+                                    {% endif %}
+                                {% endif %}{% endfor %}
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="imgBox">
+                        <img src="../static/img/09.png" alt="">
+                    </div>
+                    <div class="content">
+                        <div class="text-content">
+                            <div class="title">
+                                <h4>{% for item in eq.all %}{% if item.id == 1 %}{{item.name}}</h4>
+                                    <p>{{ item.description }}</p>
+                                    </div>
+                                    <div class="date">
+                                    <div class="date-text">
+                                        <h5>攻击值</h5>
+                                        <p>{{ item.attack_power }}</p>
+                                    </div>
+                                    <div class="date-text">
+                                        <h5>防御值</h5>
+                                        <p>{{ item.defense_power }}</p>
+                                    </div>
+                                    <div class="date-text">
+                                    <h5>等级</h5>
+                                        <p>{{ item.level }}</p>
+                                    </div>
+                                    </div>
+                                    <div class="btn">
+                                    {% if item in user.equipements.all %}
+                                        <input type="button" value="已拥有">
+                                    {% else %}
+                                        <input type="button" value="花费{{ item.value }}金币购买" onclick="window.location.href='/buy_item/{{ item.id }}/'">
+                                    {% endif %}
+                                {% endif %}{% endfor %}
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="footer">    <!--底部-->
+    <div class="footlogo"><img src="{% static 'img/logo1.0.png' %}" width="auto" height="41px" alt=""/></div>
+    <div class="foottext">
+        <div style="height:34px; width:100%; margin-bottom: 9px;">
+            <div class="wechat"><img src="{% static 'img/wechat.png' %}"/></div>
+        </div>
+        <div class="foottext2">加入我们 &nbsp;｜ &nbsp; 联系我们 &nbsp;｜&nbsp; XXXX</div>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX &nbsp;|&nbsp; XXXXXXXXXXXXXXX.COM <br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX &nbsp;|&nbsp; XXXXXXXXXXXXX &nbsp;|&nbsp; XXXX
+    </div>
+    <div style="background:rgb(136, 51, 255); width:100%; height:20%;"><br></div>
+</div>
+</body>
+</html>

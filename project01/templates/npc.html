@@ -1,0 +1,275 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style1.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/npc.css' %}">
+    <title>Gamify your study</title>
+</head>
+
+<body>
+<link href="{% static 'css/calendar.css' %}" rel="stylesheet" type="text/css">
+<div id="head">  <!--整个首页--begin-->
+    <div id="header">  <!--最顶上的导航栏-->
+        <div id="logo"><img src="{% static 'img/logo1.0.png' %}" width="40" height="40" alt=""/></div>
+        <ul class="menu">
+            <li><a href="/home/" class="mylink">首页</a></li>
+            <li><a href="/visualization/" class="mylink">任务</a></li>
+            {#                <li><a href="*" class="mylink">地图探索</a></li>#}
+            <li><a href="/equipment/" class="mylink">装备</a></li>
+            {#              <li><a href="@" class="mylink">成就系统</a></li>#}
+            <li class="li2"><a href="/visualization/ability/"  class="mylink">数据可视化</a></li>
+        </ul>
+    </div>
+</div>          <!--整个首页--end-->
+
+<div ID="second">
+    <!--待补充-->
+    <div style="background-color: #e0a611; font-size:12pt;  width:100%; height:100%; ">
+        <div id="middlesw">
+            <span tabindex="0" role="button" onclick="showDialog()"><img src="{% static 'img/li1.png' %}" width="100%" height="auto" alt=""/></span>
+        </div>
+        <div style="margin-left: 20%; margin-top:1%; font-size: 110%;">
+            {{user.name}}<br>
+            等级{{user.rank}}<br>
+        </div>
+        <div id="chart1" style="margin-left: 10%; height:40%; width: 100%"><br></div>
+        <div id="chart2" style="margin-left: 10%; height:40%; width: 100%"><br></div>
+        <script type="text/javascript" src="{% static 'js/echarts.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+        <script type="text/javascript">
+            function generatechartpanel(panelId,name,data){
+                var dom = document.getElementById(panelId);
+                var myChart = echarts.init(dom);
+                var option;
+                var app ={};
+                option = {
+                    grid: {
+                        show: false,
+                        left: '5%',
+                        right: '70%',
+                        bottom: '5%',
+                        top: '10%',
+                        containLabel: true,
+                    },
+                    backgroundColor: 'transparent',
+                    xAxis: {
+                        show: false,
+                        type: 'value',
+                        max: 100,
+                    },
+                    tooltip:{
+                        show:true,
+                        formatter: '{b}:{c}%'
+                    },
+                    yAxis:
+                        {
+                            type: 'category',
+                            inverse: true,
+                            axisLabel: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '12',
+                                    color: '#03fcfe',
+                                },
+                            },
+                            splitLine: {
+                                show: false,
+                            },
+                            axisTick: {
+                                show: false,
+                            },
+                            axisLine: {
+                                show: false,
+                            },
+                            data: [name],
+                        },
+
+                    series: [
+                        {
+                            type: 'bar',
+                            showBackground: true,
+                            backgroundStyle: {
+                                color: 'rgba(5, 4, 0, 0.537)',
+                                borderRadius:20
+                            },
+                            label:{
+                                show:true,
+                                position:'right',
+                                distance: 0,
+                                formatter:'{insideTopRight|▲}{Right|{@[0]}%}',
+                                rich: {
+                                    Right: {
+                                        color: '03fcfe',
+                                        //width: 0,
+                                        fontSize: '13',// 3
+                                        verticalAlign:'middle'
+                                    },
+                                    insideTopRight: {
+                                        color: 'white',
+                                        align: 'right'  ,
+                                        width: 0,
+                                        verticalAlign: "bottom",
+                                        lineHeight: 30 ,
+                                        fontSize: '10'
+                                    }
+                                }
+                            },
+
+                            itemStyle: {
+                                normal: {
+                                    barBorderRadius: 20,
+                                    color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
+                                        {
+                                            offset: 0,
+                                            color: '#1badf9',
+                                        },
+                                        {
+                                            offset: 1,
+                                            color: '#03fcfe',
+                                        },
+                                    ]),
+                                },
+                            },
+                            barWidth: 5,
+                            data: [data]
+                        },
+                    ],
+                };
+                if (option && typeof option === 'object') {
+                    myChart.setOption(option);
+                }
+            }
+            var xueValue = {{ user.blood }};
+            var experience={{ user.experience }};
+            generatechartpanel("chart1", "血量", xueValue);
+            generatechartpanel("chart2", "经验值", experience);
+        </script>
+    </div>
+
+    <div id="dashboard" style="width: 100%">
+
+        <div id="big_base2_ability" style="width:90%; left: 5%;">
+            <div class="small_base" style="position: relative; height: 290%;">
+                <div>
+                    <div style="margin-top: 5%; margin-left: 3%;">
+                        <img width="65" height="65" alt=""/>
+                        {{  npc_name }}:
+                    </div>
+                    <div class="conversation" style="background-color: #b0e16a;">
+                        {{ reply }}
+                    </div>
+                </div>
+                <div>
+                    <div style="margin-top: 5%; margin-left: 3%;">
+                        <img src="{% static 'img/li1.png' %}" width="65" height="65" alt=""/>
+                        {{ user.name }}:
+                    </div>
+                    <div class="conversation" style="background-color: #34a6f8;">
+                        {{ text }}
+                    </div>
+                </div>
+            </div>
+            <div class="small_base" style="font-size: 15pt; flex-grow: 1;">
+                <div style="margin-left: 5%;">
+                    <form method="post" action="/dialog/">
+                        {% csrf_token %}
+                        <textarea id="text" name="text" required maxlength="200" placeholder="Please type here." style="background-color: #b0e16a; border: transparent; height:40pt; font-size:20px;margin-left:5px;width:90%;"></textarea>
+                        <div style="display: flex; justify-content: center;">
+                            <input type="submit" value="提交" style="border-radius: 40%; width: 60px; background: #e0a611; height: 18pt; font-size: 12pt; text-align: center; color: #e1f2fa;">
+                        </div>
+                    </form>
+                </div>
+            </div>
+                <div class="npc-introduce" style="flex-grow: 1;">
+                                <img style="width: 260px;height:260px;float:left;" class="npc-big" id="npc-big"/>
+                    <div class="introduce-words">
+                                    <h5 class="introduce" id="introduce-0" align="center" style="float:left;margin-left: 300px;margin-top: -200px;margin-right: 100px;display: none"> 魔法师芙莉莲历经十年的冒险战胜魔王后，为世界带来了和平。之后独自踏上了旅途。白色双马尾，绿色眼睛，尖长的精灵耳，身穿白色金边法师袍，平胸。被魔族夺走了一切，恨不得将魔族赶尽杀绝。喜欢的食物是墨库尔布丁，最喜欢的魔法是变出花田的魔法。性格懒散，看起来冷漠实际上是外冷内热。有点毒舌。</h5>
+                                    <h5 class="introduce" id="introduce-1" align="center" style="float:left;margin-left: 300px;margin-top: -200px;margin-right: 100px;display: none">辛美尔是人类族的勇者，是芙莉莲的昔日冒险伙伴。他被世人认为是讨伐魔王四人组小队的领导者，特征是左眼旁的泪痣和蓝色双瞳。年轻时，他留着蓝色的短发，容貌俊秀；晚年则是光头留着胡须的造型。虽然他个性略带自恋，但却非常坚毅耿直，善良且富有责任感，也非常重视和照顾伙伴。他擅长使用长剑。因为生前曾救助许多地区的人民而备受景仰。儿时，他的母亲早逝，偶然救助了被魔物袭击的商人，并受了言语刺激而立志成为勇者。在森林采药期间，他迷路了并与芙莉莲结下了不解之缘。双方在旅途中重逢后，与伙伴们一起踏上了为期十年的冒险旅程。实际上，他一直对芙莉莲抱有爱慕之情。最喜欢家乡的花苍月草，是一种蓝色五片花瓣的花，盛开的时候会开成天蓝色的花海，就像他头发的颜色一样。</h5>
+                                    <h5 class="introduce" id="introduce-2" align="center" style="float:left;margin-left: 300px;margin-top: -200px;margin-right: 100px;display: none">菲伦是芙莉莲的徒弟，和她一起旅行的魔法使。被抚养长大的战灾孤儿。冷静的少女，仿佛母亲一般照顾生活方面懒散的芙莉莲。魔法使，头发和双瞳皆为紫色，拥有魔法资质的人类族少女，发长随年龄增长而变化。平常个性温和淡定，一旦生气会变得很可怕，有时会吐槽芙莉莲和修塔尔克。南方诸国地区出身，因为战争失去双亲成为孤儿，在绝望欲寻短之际被海塔收养照顾。9岁时因为芙莉莲拜访海塔的住处而结下不解之缘，被海塔托付给芙莉莲照顾兼学习魔法。在海塔逝世后参加圣都斯特拉尔的魔法使资格测验，以首席成绩取得三级魔法使资格]陪同芙莉莲踏上旅程，并担任她的助理，在她的培养下成为数一数二的年轻魔法使。后来通过魔法使资格测验升级为一级魔法使，被大陆魔法协会成立者认定为潜力不可限量。</h5>
+                                    <h5 class="introduce" id="introduce-3" align="center" style="float:left;margin-left: 300px;margin-top: -200px;margin-right: 100px;display: none">休塔尔克是一个年轻的战士，属于人类。有红色的头发和红色的眼睛，个性非常胆小，但他善良且富有责任感。他是一个优秀的战士，愿意为他人而战。他擅长使用长柄斧作为武器。休塔尔克出生在中央诸国克莱地区的战士之村，在家乡被魔族袭击时，他在兄长的掩护下逃脱了。在红镜龙袭击利鲁尔峡谷地区的附近村庄时，他冷静地与红镜龙对视，迫使其撤退，因此被村庄居民视为英雄。在芙莉莲和菲伦思考对抗红镜龙的策略时，他受邀加入了他们的队伍，并帮助他们解决了红镜龙的问题。随着剧情的发展，他离开了居住了三年的村庄，成为芙莉莲的近卫。与此同时，他与菲伦之间也产生了微妙的情感。仰慕的人是菲伦。</h5>
+                    </div>
+                                <script>
+                                    // 获取图片元素
+                                    var imgElement1 = document.getElementById('npc-big');
+                                    if ({{ npc_id }} == 0){ imgElement1.src = "{% static 'img/fulilian.png' %}"; }
+                                    if ({{ npc_id }} == 1){ imgElement1.src = "{% static 'img/xin.png' %}"; }
+                                    if ({{ npc_id }} == 2){ imgElement1.src = "{% static 'img/feilun.png' %}"; }
+                                    if ({{ npc_id }} == 3){ imgElement1.src = "{% static 'img/stark.png' %}"; }
+                                    var x = document.getElementById('introduce-{{ npc_id }}');
+                                    x.style.display="block" ;
+                            </script>
+                        </div>
+        </div>
+        <script>
+            // 获取图片元素
+            var imgElement = document.getElementsByTagName('img')[2];
+            if ({{ npc_id }} == 0){ imgElement.src = "{% static 'img/fulilian.png' %}"; }
+            if ({{ npc_id }} == 1){ imgElement.src = "{% static 'img/xin.png' %}"; }
+            if ({{ npc_id }} == 2){ imgElement.src = "{% static 'img/feilun.png' %}"; }
+            if ({{ npc_id }} == 3){ imgElement.src = "{% static 'img/stark.png' %}"; }
+        </script>
+
+        <dialog id="myDialog">
+            <br>
+            <br>
+            <h1 style="text-align: center">角色信息</h1>
+            <br>
+            <br>
+            <form method="post" action="/infochange/">
+                {% csrf_token %}
+                <label for="ID">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID:&nbsp;</label>
+                <a>{{ user.id }}</a>
+                <br><br>
+                <label for="uname">&nbsp;&nbsp;&nbsp;&nbsp;用户名:</label>
+                <input type="text" id="uname" name="uname" value="{{ user.name }}" required><br>
+                <br>
+                <label for="password">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码:</label>
+                <input type="password" id="password" name="password" value="{{ user.password }}" required><br>
+                <br>
+                <div style="display: flex; justify-content: center;">
+                    <input type="submit" value="修改" style="border-radius: 40%; width: 60px; background: #e0a611; height: 18pt; font-size: 12pt; text-align: center; color: #e1f2fa;">
+                </div>
+            </form>
+            <br>
+            <div style="display: flex; justify-content: center;">
+                <button onclick="closeDialog()">关闭</button>
+            </div>
+        </dialog>
+
+        <script>
+            function showDialog() {
+                var dialog = document.getElementById("myDialog");
+                dialog.open = true; // 打开弹窗
+            }
+
+            function closeDialog() {
+                var dialog = document.getElementById("myDialog");
+                dialog.open = false; // 关闭弹窗
+            }
+        </script>
+
+
+    </div>
+
+
+</div>
+
+
+<div class="footer">    <!--底部-->
+    <div class="footlogo"><img src="{% static 'img/logo1.0.png' %}" width="auto" height="41px" alt=""/></div>
+    <div class="foottext">
+        <div style="height:34px; width:100%; margin-bottom: 9px;">
+            <div class="wechat"><img src="{% static 'img/wechat.png' %}"/></div>
+        </div>
+        <div class="foottext2">加入我们 &nbsp;｜ &nbsp; 联系我们 &nbsp;｜&nbsp; XXXX</div>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX &nbsp;|&nbsp; XXXXXXXXXXXXXXX.COM <br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX &nbsp;|&nbsp; XXXXXXXXXXXXX &nbsp;|&nbsp; XXXX
+    </div>
+    <div style="background:rgb(136, 51, 255); width:100%; height:20%;"><br></div>
+</div>
+</body>
+</html>

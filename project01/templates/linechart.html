@@ -1,0 +1,353 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style1.css' %}">
+    <title>Gamify your study</title>
+</head>
+
+<body>
+<link href="{% static 'css/calendar.css' %}" rel="stylesheet" type="text/css">
+<div id="head">  <!--整个首页--begin-->
+    <div id="header">  <!--最顶上的导航栏-->
+        <div id="logo"><img src="{% static 'img/logo1.0.png' %}" width="40" height="40" alt=""/></div>
+        <ul class="menu">
+            <li><a href="/home/" class="mylink">首页</a></li>
+            <li><a href="/visualization/" class="mylink">任务</a></li>
+            {#                <li><a href="*" class="mylink">地图探索</a></li>#}
+            <li><a href="/equipment/" class="mylink">装备</a></li>
+            {#              <li><a href="@" class="mylink">成就系统</a></li>#}
+            <li class="li2"><a href="/visualization/ability/"  class="mylink">数据可视化</a></li>
+        </ul>
+    </div>
+</div>          <!--整个首页--end-->
+
+<div ID="second">
+    <!--待补充-->
+    <div style="background-color: #e0a611; font-size:12pt;  width:100%; height:100%; ">
+        <div id="middlesw">
+            <span tabindex="0" role="button" onclick="showDialog()"><img src="{% static 'img/li1.png' %}" width="100%" height="auto" alt=""/></span>
+        </div>
+        <div style="margin-left: 20%; margin-top:1%; font-size: 110%;">
+            {{user.name}}<br>
+            等级{{user.rank}}<br>
+        </div>
+        <div id="chart1" style="margin-left: 10%; height:40%; width: 100%"><br></div>
+        <div id="chart2" style="margin-left: 10%; height:40%; width: 100%"><br></div>
+        <script type="text/javascript" src="{% static 'js/echarts.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+        <script type="text/javascript">
+            function generatechartpanel(panelId,name,data){
+                var dom = document.getElementById(panelId);
+                var myChart = echarts.init(dom);
+                var option;
+                var app ={};
+                option = {
+                    grid: {
+                        show: false,
+                        left: '5%',
+                        right: '70%',
+                        bottom: '5%',
+                        top: '10%',
+                        containLabel: true,
+                    },
+                    backgroundColor: 'transparent',
+                    xAxis: {
+                        show: false,
+                        type: 'value',
+                        max: 100,
+                    },
+                    tooltip:{
+                        show:true,
+                        formatter: '{b}:{c}%'
+                    },
+                    yAxis:
+                        {
+                            type: 'category',
+                            inverse: true,
+                            axisLabel: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '12',
+                                    color: '#03fcfe',
+                                },
+                            },
+                            splitLine: {
+                                show: false,
+                            },
+                            axisTick: {
+                                show: false,
+                            },
+                            axisLine: {
+                                show: false,
+                            },
+                            data: [name],
+                        },
+
+                    series: [
+                        {
+                            type: 'bar',
+                            showBackground: true,
+                            backgroundStyle: {
+                                color: 'rgba(5, 4, 0, 0.537)',
+                                borderRadius:20
+                            },
+                            label:{
+                                show:true,
+                                position:'right',
+                                distance: 0,
+                                formatter:'{insideTopRight|▲}{Right|{@[0]}%}',
+                                rich: {
+                                    Right: {
+                                        color: '03fcfe',
+                                        //width: 0,
+                                        fontSize: '13',// 3
+                                        verticalAlign:'middle'
+                                    },
+                                    insideTopRight: {
+                                        color: 'white',
+                                        align: 'right'  ,
+                                        width: 0,
+                                        verticalAlign: "bottom",
+                                        lineHeight: 30 ,
+                                        fontSize: '10'
+                                    }
+                                }
+                            },
+
+                            itemStyle: {
+                                normal: {
+                                    barBorderRadius: 20,
+                                    color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
+                                        {
+                                            offset: 0,
+                                            color: '#1badf9',
+                                        },
+                                        {
+                                            offset: 1,
+                                            color: '#03fcfe',
+                                        },
+                                    ]),
+                                },
+                            },
+                            barWidth: 5,
+                            data: [data]
+                        },
+                    ],
+                };
+                if (option && typeof option === 'object') {
+                    myChart.setOption(option);
+                }
+            }
+            var xueValue = {{ user.blood }};
+            var experience={{ user.experience }};
+            generatechartpanel("chart1", "血量", xueValue);
+            generatechartpanel("chart2", "经验值", experience);
+        </script>
+    </div>
+
+    <div id="dashboard">
+        <div id="big_base">
+            <div id="base1">
+                <div class="Icon">
+                    <svg width="8.729980" height="9.699890" viewBox="0 0 8.72998 9.69989" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <desc>
+                            Created with Pixso.
+                        </desc>
+                        <defs/>
+                        <path id="Icon" d="M5.73242 0.969971L7.75977 0.969971C8.29346 0.969971 8.72998 1.40649 8.72998 1.94L8.72998 8.72992C8.72998 9.26343 8.29346 9.69989 7.75977 9.69989L0.970215 9.69989C0.436523 9.69989 0 9.26343 0 8.72992L0 1.94C0 1.40649 0.436523 0.969971 0.970215 0.969971L2.99707 0.969971C3.20117 0.40741 3.73438 0 4.36475 0C4.99561 0 5.52881 0.40741 5.73242 0.969971ZM4.36475 0.969971C4.63184 0.969971 4.8501 1.18823 4.8501 1.45496C4.8501 1.72174 4.63184 1.94 4.36475 1.94C4.09814 1.94 3.87988 1.72174 3.87988 1.45496C3.87988 1.18823 4.09814 0.969971 4.36475 0.969971ZM1.93994 3.39496C1.93994 3.66174 2.1582 3.87994 2.4248 3.87994L6.30518 3.87994C6.57178 3.87994 6.79004 3.66174 6.79004 3.39496C6.79004 3.12823 6.57178 2.90997 6.30518 2.90997L2.4248 2.90997C2.1582 2.90997 1.93994 3.12823 1.93994 3.39496ZM2.4248 5.81995C2.1582 5.81995 1.93994 5.60168 1.93994 5.33496C1.93994 5.06824 2.1582 4.84998 2.4248 4.84998L6.30518 4.84998C6.57178 4.84998 6.79004 5.06824 6.79004 5.33496C6.79004 5.60168 6.57178 5.81995 6.30518 5.81995L2.4248 5.81995ZM2.4248 7.75995L4.8501 7.75995C5.1167 7.75995 5.33496 7.54169 5.33496 7.2749C5.33496 7.00818 5.1167 6.78992 4.8501 6.78992L2.4248 6.78992C2.1582 6.78992 1.93994 7.00818 1.93994 7.2749C1.93994 7.54169 2.1582 7.75995 2.4248 7.75995Z" clip-rule="evenodd" fill-rule="evenodd" fill="#33BFFF" fill-opacity="1.000000"/>
+                    </svg>
+                </div>
+                <a href="/visualization/" style=" text-decoration: none;">任务</a>
+            </div>
+            <div class="base2" style="margin-top: 41.22px;" ><a href="/visualization/displaytree/" style=" text-decoration: none;">事件总览</a></div>
+            <div class="base2" ><a href="/visualization/ability/" style=" text-decoration: none;">能力图谱</a></div>
+            <div class="base2">
+                <dev class="Icon">
+                    <svg width="8.729980" height="9.699890" viewBox="0 0 8.72998 9.69989" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <desc>
+                            Created with Pixso.
+                        </desc>
+                        <defs/>
+                        <path id="Icon" d="M6.30518 0.484985L6.30518 0.969971L2.4248 0.969971L2.4248 0.484985C2.4248 0.218262 2.20654 0 1.93994 0C1.67334 0 1.45508 0.218262 1.45508 0.484985L1.45508 0.969971L0.970215 0.969971C0.431641 0.969971 0.00488281 1.40649 0.00488281 1.94L0 8.72992C0 9.26343 0.431641 9.69989 0.970215 9.69989L7.75977 9.69989C8.29346 9.69989 8.72998 9.26343 8.72998 8.72992L8.72998 1.94C8.72998 1.40649 8.29346 0.969971 7.75977 0.969971L7.2749 0.969971L7.2749 0.484985C7.2749 0.218262 7.05664 0 6.79004 0C6.52295 0 6.30518 0.218262 6.30518 0.484985ZM1.45508 8.72998L7.2749 8.72998C7.5415 8.72998 7.75977 8.51172 7.75977 8.24493L7.75977 3.39502L0.970215 3.39502L0.970215 8.24493C0.970215 8.51172 1.18848 8.72998 1.45508 8.72998ZM6.30469 5.33496L4.8501 5.33496C4.58301 5.33496 4.36475 5.55322 4.36475 5.81995L4.36475 7.27496C4.36475 7.54169 4.58301 7.75995 4.8501 7.75995L6.30469 7.75995C6.57178 7.75995 6.79004 7.54169 6.79004 7.27496L6.79004 5.81995C6.79004 5.55322 6.57178 5.33496 6.30469 5.33496Z" clip-rule="evenodd" fill-rule="evenodd" fill="#29CC39" fill-opacity="1.000000"/>
+                    </svg>
+
+                </dev>
+                <a href="/visualization/pinechart/" style=" text-decoration: none;">待办完成情况</a>
+            </div>
+            <div class="base2"><a href="/visualization/linechart/" style=" text-decoration: none;">每日事项统计</a></div>
+        </div>
+
+        <div id="big_base2_ability">
+            <div class="small_base">
+                <div id="line-chart" style="border-radius: 20%;"></div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="{% static 'js/echarts.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+        <script type="text/javascript">
+            var timearray2=[];
+
+            var dom = document.getElementById("line-chart");
+            var myChart = echarts.init(dom);
+            var option;
+            var app ={};
+
+            {% for i in timearray %}
+                timearray2.push("{{ i }}".replace("&#x27;","\""));
+            {% endfor %}
+
+            {#console.log(timearray2)#}
+            {#console.log({{ timearray }})#}
+            {#console.log({{ count }})#}
+            option = {
+                tooltip: {
+                    trigger: "axis",
+                    axisPointer: {
+                        type: "cross",
+                        crossStyle: {
+                            color: "#999",
+                        },
+                    },
+                },
+                grid: {
+                    left: "15px",
+                    top: "40px",
+                    right: "0",
+                    bottom: "0",
+                    containLabel: true,
+                },
+                xAxis: {
+                    type: "category",
+                    {#data: [#}
+                    {#    "2023-08-22",#}
+                    {#    "2023-08-23",#}
+                    {#    "2023-08-24",#}
+                    {#    "2023-08-25",#}
+                    {#    "2023-08-26",#}
+                    {#    "2023-08-27",#}
+                    {#    "2023-08-28"#}
+                    {#],#}
+                    data: timearray2,
+                    axisPointer: {
+                        type: "shadow",
+                    },
+                    axisLabel: {
+                        //展示角度
+                        rotate: 40,
+                        color: '#666'
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: "#ddd",
+                        },
+                    },
+                },
+                yAxis: {
+                    name: "(个)        ",
+                    type: "value",
+                    minInterval: 1,
+                    splitLine: {
+                        lineStyle: {
+                            type: 'dashed',
+                            color: '#eee',
+                        },
+                    },
+                },
+                series: [
+                    {
+                        name: "当日需要做的事项个数",
+                        data: {{ count }},
+                        {#data: [6, 64, 34, 10, 0, 0, 30],#}
+                        type: "line",
+                        smooth: true,
+                        showSymbol: false,
+                        itemStyle: {
+                            normal: {
+                                lineStyle: {
+                                    width: 1,
+                                    color: '#b1c4fb',
+                                },
+                            },
+                        },
+                        areaStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                {
+                                    offset: 0,
+                                    color: "#A9BEFB",
+                                },
+                                {
+                                    offset: 1,
+                                    color: "#fff",
+                                },
+                            ]),
+                        },
+                    },
+                ],
+            };
+            if (option && typeof option === 'object') {
+                myChart.setOption(option);
+            }
+        </script>
+
+        <dialog id="myDialog">
+            <br>
+            <br>
+            <h1 style="text-align: center">角色信息</h1>
+            <br>
+            <br>
+            <form method="post" action="/infochange/">
+                {% csrf_token %}
+                <label for="ID">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID:&nbsp;</label>
+                <a>{{ user.id }}</a>
+                <br><br>
+                <label for="uname">&nbsp;&nbsp;&nbsp;&nbsp;用户名:</label>
+                <input type="text" id="uname" name="uname" value="{{ user.name }}" required><br>
+                <br>
+                <label for="password">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码:</label>
+                <input type="password" id="password" name="password" value="{{ user.password }}" required><br>
+                <br>
+                <div style="display: flex; justify-content: center;">
+                    <input type="submit" value="修改" style="border-radius: 40%; width: 60px; background: #e0a611; height: 18pt; font-size: 12pt; text-align: center; color: #e1f2fa;">
+                </div>
+            </form>
+            <br>
+            <div style="display: flex; justify-content: center;">
+                <button onclick="closeDialog()">关闭</button>
+            </div>
+        </dialog>
+
+        <script>
+            function showDialog() {
+                var dialog = document.getElementById("myDialog");
+                dialog.open = true; // 打开弹窗
+            }
+
+            function closeDialog() {
+                var dialog = document.getElementById("myDialog");
+                dialog.open = false; // 关闭弹窗
+            }
+        </script>
+
+    </div>
+
+</div>
+
+<div class="footer">    <!--底部-->
+    <div class="footlogo"><img src="{% static 'img/logo1.0.png' %}" width="auto" height="41px" alt=""/></div>
+    <div class="foottext">
+        <div style="height:34px; width:100%; margin-bottom: 9px;">
+            <div class="wechat"><img src="{% static 'img/wechat.png' %}"/></div>
+        </div>
+        <div class="foottext2">加入我们 &nbsp;｜ &nbsp; 联系我们 &nbsp;｜&nbsp; XXXX</div>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX &nbsp;|&nbsp; XXXXXXXXXXXXXXX.COM <br>
+        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX &nbsp;|&nbsp; XXXXXXXXXXXXX &nbsp;|&nbsp; XXXX
+    </div>
+    <div style="background:rgb(136, 51, 255); width:100%; height:20%;"><br></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,567 @@
+@charset"UTF-8";
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+/*@viewport {
+    min-zoom: 50%;
+    max-zoom: 110%;
+}*/
+body{
+    margin-left: auto;
+    margin-right: auto; 
+    width: 100%;
+    height: 100%;
+    /*width: 1652px;
+    height: 4743px;*/
+}
+#head{
+    background-color:#e0a611;
+    position:relative;
+    color:azure;
+    margin-left: 0;
+    margin-top: -1% !important;
+    width: 100%;
+    overflow:visible;
+    /*height: 30%;  /*300px */
+    transition:all 0.5s ease-in-out;  /*设置过渡效果*/
+}
+#header{
+    z-index:100 !important;
+    /*position:fixed;*/
+    position:relative;
+    margin-top:0%;
+    font-size: 12pt;
+    float: left;
+    height:8%;   /*72px*/
+    width:100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+#header:hover{
+    background-color: rgb(136, 51, 255) !important;
+}
+#logo{
+    cursor: pointer;
+    margin-top: 0.5%;
+    float: left;
+    width: 8%;
+    height: 50%;
+    margin-left: 4%;
+}
+.menu{
+    /*position: relative;*/
+    width:100%;
+    margin-top: 1%;
+    list-style: none;
+    margin-left: 15%;
+    /*height:50%;*/
+    position: absolute;
+}
+.menu li{
+    float: left;
+    margin-right: 4%;
+}
+.first{
+    height:auto;
+    z-index:100 !important;
+}
+.first:hover .secondmenu{
+    display:block;
+}
+.secondmenu{
+    position: relative;
+    z-index:105 !important;
+    margin-top: 18%;
+    /*margin-left:-45px;
+    margin-right:-50px;*/
+    width:100%;
+    line-height: 200%;  
+    height:auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    list-style: none;
+    display: none;
+}
+.secondmenu:hover{
+    background-color: rgb(0, 0, 0) !important;
+    z-index:100 !important;
+}
+.secondmenu li{
+    text-align: center;
+    float:none;
+    color: aliceblue;
+    font-size: 12pt;
+    cursor: pointer;
+}
+.secondmenu .li1::after{
+    content:'';
+    width:85%;
+    display:block;
+    height:9.5px;
+    margin:auto auto;
+    /*padding-bottom: 9.5px;         /*设置下划线和字之间的距离*/
+    border-bottom: 2px solid aliceblue ;  /*自定义下划线粗细，颜色*/
+}
+.secondmenu li:hover{
+    color:#e0a611 !important;
+}
+.li2{
+    margin: 0;
+    letter-spacing: 2pt;
+}
+.mylink{
+    color:#fff;
+}
+.mylink:link{
+    color: aliceblue !important;
+    font-size:12pt;
+    text-decoration:none;
+}
+/*.mylink:visited{*/
+/*    color:#e0a611 !important; */
+/*}*/
+.mylink:hover{
+    color:#e0a611 !important; 
+}
+/*
+.mylink:hover .sp1{
+    padding-top:30px;
+}
+ .mylink:hover .sp2{
+     margin-bottom: -60px;
+ }*/
+#second{
+    margin-top: 1%;
+    text-align: left; 
+    width:100%; 
+    height:30%; 
+}
+#middlesw{
+    height:100px;
+    margin-left:10%;
+}
+#middlesw span{
+    aspect-ratio: 1 / 1; /* 使用aspect-ratio属性确保元素始终为正圆 */
+    overflow:hidden;
+    z-index: 10 !important;
+    cursor: pointer;
+    height:75%;          /*这里写的是middlesw绝对值高度100px，其span元素是其绝对高度的75%,那么照理说span的高度也是绝对的，但是为什么实现了自适应呢？*/
+    margin:2% 3% !important;
+    border:3.44px solid #fff;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 1 !important;
+    background: black;
+    /* position: relative !important; */
+}
+#myDialog {
+    border-radius: 10%;
+    background: cornflowerblue;
+    z-index: 100;
+    width: 300px;
+    height: 400px;
+    margin: auto;
+    top:100px;
+    /*position: relative;*/
+    position: fixed;
+    line-height: 150%;
+}
+#myDialog button{
+    border-radius: 40%;
+    width: 60px;
+    background: #e0a611;
+    height: 18pt;
+    font-size: 12pt;
+    text-align: center;
+    color: #e1f2fa;
+}
+
+#dashboard{
+    /* Project Stages 2 – 1600 */
+    position: relative;
+    width: 100%;
+    height: 773.48px;
+    border-radius:9.7px;
+    background: rgb(247, 248, 250);
+}
+#big_base{
+    transform: scale(1.5);
+    /* Base */
+    position: absolute;
+    width: 150.35px;
+    height: 185.4px;
+    left: 7%;
+    top:10%;
+    /* Grey Blue 95 */
+    border: 0.97px solid rgb(237, 239, 242);
+    border-radius: 9.7px;
+    background: rgb(247, 248, 250);
+}
+#base1{
+    position: absolute;
+    width: 135.8px;
+    height: 29.1px;
+    left: 7.27px;
+    right: 7.27px;
+    top: 7.27px;
+    bottom: 0%;
+    border-radius: 4.85px;
+    /* Shadows/Purple/10%/30b */
+    box-shadow: 0px 4.85px 14.55px 0px rgba(136, 51, 255, 0.1);
+    /* Purple */
+    color: rgb(255, 102, 51) !important;
+    background: rgb(255, 255, 255);
+}
+#base1:hover{
+    background-color: rgb(136, 51, 255);
+    color: rgb(255, 255, 255) !important;
+}
+#base1:hover a{
+    color: rgb(255, 255, 255) !important;
+}
+#base1 a{
+    /* My projects */
+    color: rgb(255, 102, 51) !important;
+    position: absolute;
+    width: 50px;
+    height: 12px;
+    left: 31.52px;
+    right: 70.27px;
+    top: 8.73px;
+    bottom: 8.37px;
+    font-family: Roboto;
+    font-size: 8px;
+    font-weight: 900;
+    line-height: 12.12px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+.base2{
+    display: block;
+    position: relative;
+    width: 135.8px;
+    height: 29.1px;
+    left: 5%;
+    right: 0%;
+    margin-bottom: 0%;
+    border-radius: 4.85px;
+    margin-top: 4.85px;
+    /* Shadows/Gray Blue/3%/5b */
+    box-shadow: 0px 0.97px 2.42px 0px rgba(38, 51, 77, 0.03);
+    /* White */
+    color: rgb(255, 102, 51) !important;
+    background-color: rgb(255, 255, 255);
+}
+.base2:hover{
+    background-color: rgb(136, 51, 255);
+    color: rgb(255, 255, 255) !important;
+}
+.base2:hover a{
+    color: rgb(255, 255, 255) !important;
+}
+.base2 a{
+    /*font-family: Roboto;*/
+    color: rgb(255, 102, 51) !important;
+    text-decoration: none;
+    font-size: 8px;
+    font-weight: 700;
+    line-height: 12.12px;
+    letter-spacing: 0px;
+    text-align: left;
+    position: absolute;
+    width: 50px;
+    height: 12px;
+    left: 31.52px;
+    right: 87.27px;
+    top: 8.73px;
+    bottom: 8.37px;
+}
+.Icon{
+    /* Icon */
+    position: absolute;
+    width: 8.73px;
+    height: 9.7px;
+    left: 10%;
+    top: 17.63%;
+    bottom: 16.7%;
+}
+
+#big_base2{
+    /* Base */
+    position: absolute;
+    width: 70%;
+    height: 92%;
+    left: 25%;
+    top: 4%;
+    bottom: 0%;
+    border-radius: 9.7px;
+    /* Shadows/Gray Blue/3%/5b */
+    box-shadow: 0px 0.97px 2.42px 0px rgba(38, 51, 77, 0.03);
+    /* White */
+    background: rgb(255, 255, 255);
+}
+/*ability.html专用------begin-----*/
+#big_base2_ability{
+    /* Base */
+    position: absolute;
+    width: 70%;
+    height: 92%;
+    left: 25%;
+    top: 4%;
+    bottom: 0%;
+    border-radius: 9.7px;
+    /* Shadows/Gray Blue/3%/5b */
+    box-shadow: 0px 0.97px 2.42px 0px rgba(38, 51, 77, 0.03);
+    /* White */
+    background: rgb(255, 255, 255);
+
+    /*new*/
+    display: flex;
+    flex-direction: column;
+}
+.small_base {
+     display: flex;
+     width: 100%;
+    height: 100%;
+ }
+.small_base div {
+    flex: 1;
+    /*height: 100%;*/
+    /*background: rgb(50,50,50,0.7);*/
+}
+/*ability.html专用------end-----*/
+
+/*equipment.html专用-------begin-----*/
+.equip{
+    position: relative;
+    margin-top:15px;
+    margin-bottom:15px;
+    margin-left:15px;
+    margin-right:15px;
+    flex: 1;
+    background: #666666;
+    color:#fff;
+    border-radius: 10%;
+}
+/*equipment.html专用-------end-----*/
+
+#base3{
+    /* Base */
+    position: absolute;
+    width: 100%;
+    height: 80.02px;
+    top: 0%;
+    bottom: 0;
+    border-radius: 9.7px 9.7px 0px 0px;
+    /* Grey Blue 99 */
+    background: rgb(250, 251, 252);
+}
+#tab1{
+    /* Tab */
+    position: absolute;
+    width: 349.2px;
+    height: 28px;
+    left: 341.24px;
+    right: 351.91px;
+    top: 18.91px;
+    bottom: 33.11px;
+    /* 自动布局 */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 0px;
+}
+#tab1 a{
+    /* Tab */
+    position: static;
+    width: 80px;
+    height: 10px;
+    /* 自动布局 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    /* Inside Auto Layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    color: rgb(125, 143, 179);
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0px;
+    text-align: center;
+}
+#tab1 a:hover{
+    color: rgb(136, 51, 255);
+}
+#tab1 a::after{
+    position: relative;
+    top:20px;
+    content:'';
+    width:85%;
+    display:block;
+    height:9.5px;
+    /*margin:auto auto;
+    /*padding-bottom: 9.5px;         /*设置下划线和字之间的距离*/
+    border-bottom: 2px solid rgb(184, 158, 220); /*自定义下划线粗细，颜色*/
+}
+#tab1 a:hover::after{
+    display:block;
+    border-bottom: 2px solid  rgb(136, 51, 255);  /*自定义下划线粗细，颜色*/
+}
+#search{
+    /* Button */
+    position: absolute;
+    width: 132px;
+    height: 40px;
+    left: 30px;
+    right: 964.24px;
+    top: 85px;
+    bottom: 7.27px;
+    /* 自动布局 */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 2.91px 9.7px 2.91px 7.27px;
+    border-radius: 20px;
+    /* Shadows/Gray Blue/3%/5b */
+    box-shadow: 0px 0.97px 2.42px 0px rgba(38, 51, 77, 0.03);
+    /* White */
+    background: rgb(250, 251, 252);
+}
+#search a{
+    /* Button */
+    position: static;
+    width: 66px;
+    height: 20px;
+    /* 自动布局 */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 2.91px 9.7px 2.91px 7.27px;
+    /* Inside Auto Layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin: 0px 2.4249773025512695px;
+    color: rgb(107, 122, 153);
+    font-family: Roboto;
+    font-size: 10px;
+    font-weight: 900;
+    line-height: 9.7px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+.taskdis{
+    /* Base */
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    float: left;
+    width: 175.57px;
+    height: 150.35px;
+    margin-left: 30px;
+    margin-top:150px;
+    /* Grey Blue 97 */
+    border: 0.97px solid rgb(245, 246, 247);
+    border-radius: 4.85px;
+    /* Shadows/Gray Blue/3%/5b */
+    box-shadow: 0px 0.97px 2.42px 0px rgba(38, 51, 77, 0.03);
+    /* White */
+    background: #e0a611;
+}
+.taskdis.active{
+    background: #8441a8;
+}
+.taskfooter{
+    /* Footer */
+    position: absolute;
+    width: 100%;
+    height: 20%;
+    bottom: 0;
+    border: 0.97px solid rgb(245, 246, 247);
+    /* Shadows/Gray Blue/3%/5b */
+    box-shadow: 0px 0.97px 2.42px 0px rgba(38, 51, 77, 0.03);
+}
+.tfh{
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    bottom: 0;
+    border-right: 0.97px solid rgb(245, 246, 247);
+    /* Shadows/Gray Blue/3%/5b */
+    box-shadow: 0px 0.97px 2.42px 0px rgba(38, 51, 77, 0.03); 
+}
+#base4{
+    /* Base */
+    position: absolute;
+    width: 800px;
+    height: 353.07px;
+    left: 30px;
+    margin-top: 320px;
+    /* Grey Blue 97 */
+    border: 0.97px solid rgb(245, 246, 247);
+    border-radius: 4.85px;
+    /* Shadows/Gray Blue/3%/5b */
+    box-shadow: 0px 0.97px 2.42px 0px rgba(38, 51, 77, 0.03);
+    /* White */
+    background: #e0a611;
+}
+
+.footer{
+    background:rgb(136, 51, 255);
+    width:100%; 
+    height:20%; 
+    padding-top:1%;
+    margin-bottom: -3%;
+}
+.footlogo{
+    cursor: pointer;
+    margin-left:5%; 
+    margin-top:5%; 
+    width:139px; 
+    height:130px; 
+    float:left; 
+    margin-right:119px;
+}
+.foottext{
+    margin-top:5%; 
+    margin-left:15%; 
+    width:auto; 
+    height:130px; 
+    float:lefft; 
+    color:#a9a9a9; 
+    font-size: 12pt; 
+    text-align:left; 
+    line-height: 170%; 
+    font-weight: lighter;
+}
+.foottext2{
+    color:#fbfbfb; 
+    font-size:12pt; 
+    font-weight: lighter; 
+    margin-bottom: 5px; 
+    position: relative; 
+    z-index: 5; 
+    text-align: left;
+}
+.wechat{
+    margin-right:14px; 
+    float:left; 
+    cursor: pointer;
+}
+
+.conversation{
+    font-size: 15pt;
+    margin-left: 5%;
+    margin-right: 5%;
+    height: auto;
+    border-radius: 5%;
+}
+
+
