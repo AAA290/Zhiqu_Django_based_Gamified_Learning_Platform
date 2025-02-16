@@ -37,13 +37,29 @@ Python、Django、HTML、CSS、JavaScript、Inworld AI
 
 #### 项目结构
 
-##### 主要文件夹说明
-- `src/`：项目的主要源代码。  
-- `docs/`：项目文档和相关说明。  
-- `templates/`：Django 模板文件，用于前端页面渲染。  
-- `static/`：静态资源文件，包括 CSS、JavaScript、图片等。  
-- `migrations/`：数据库迁移文件。  
-- `tests/`：单元测试和集成测试代码。
+##### 主要文件说明
+
+- **`project01/`**：项目根目录，包含所有源代码和配置文件。
+  - **`project01/`**：Django 项目配置目录。
+    - `settings.py`：项目全局配置（如数据库、中间件、静态文件路径等）。
+    - `urls.py`：项目主路由配置。
+    - `__init__.py`：Python 包标识文件。
+    - `wsgi.py`
+    - `asgi.py`
+  - **`manage.py`**：Django 命令行工具脚本，用于启动服务、迁移数据库等操作。
+  - **`templates/`**：Django 模板文件目录，存放 HTML 前端页面。
+  - **`static/`**：静态资源目录，包含 CSS 样式表、JavaScript 脚本及图片资源。
+  - **`TestModel/`**：自定义 Django 应用目录，实现用户注册、登录及核心功能模块。
+    - `models.py`：定义数据库模型（如 `UserInfo`、`TaskInfo` 等）。
+    - `views.py`：处理业务逻辑的视图函数。
+    - `admin.py`：后台管理系统配置。
+    - `apps.py`
+    - `tests.py`
+    - `migrations/`：数据库迁移记录文件。
+  - **`db.sqlite3`**：SQLite 数据库文件，存储用户数据、任务、装备等信息。
+  - **`project01.iml`**：JetBrains IDE 配置文件（可忽略）。
+
+- **`Django.pdf`**：项目开发初期整理的 Django 学习笔记（非必需文件）。  
 
 ---
 
@@ -51,6 +67,6 @@ Python、Django、HTML、CSS、JavaScript、Inworld AI
 
 ##### 核心表
 - **`UserInfo`**：用户信息表，存储用户的基本信息、装备、任务和待办事项。  
-- **`EquipmentInfo``**：装备信息表，存储装备的属性和描述。  
+- **`EquipmentInfo`**：装备信息表，存储装备的属性和描述。  
 - **`TaskInfo`**：任务信息表，存储每日任务的详细信息。  
 - **`TodoInfo`**：待办事项表，存储待办事项的详细信息。
