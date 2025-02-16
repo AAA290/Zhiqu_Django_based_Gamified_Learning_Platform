@@ -4,35 +4,47 @@
 基于 Django 框架实现游戏化学习网站，结合前端 HTML、CSS 和 JavaScript 技术。
 项目功能丰富多样，用户可进行注册登录，创建及展示任务与待办事项，与 AI 角色聊天等。配有数据可视化页面，采用金币和经验值奖励机制，金币可用于购买商城中的装备，并且配置了游戏后台管理系统。
 
-#### 软件架构
-软件架构说明
+#### 技术栈
+Python、Django、HTML、CSS、JavaScript、Inworld AI
 
+#### 项目功能
+###核心功能
+1. 用户注册与登录：
+用户可以通过注册功能创建账号，并使用账号登录系统。
+登录后，用户信息会通过 Django 的 Session 框架保存，便于后续操作。
 
-#### 安装教程
+2. 任务管理： 
+每日任务：用户可以创建、查看和完成每日任务，完成任务后获得金币和经验值奖励。
+待办事项：用户可以添加待办事项，并在完成后勾选标记。
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+3. AI NPC 对话：
+集成 Inworld AI，用户可以与具有不同性格和背景故事的 NPC 进行对话，增加互动性和趣味性。
 
-#### 使用说明
+4. 装备系统：
+用户可以通过金币购买装备，提升角色的攻击值和防御值。
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+5. 数据可视化：
+能力图谱：展示用户的综合能力指标。
+事件总览：通过网状图展示用户的每日任务和待办事项。
+待办完成情况：统计用户待办事项的完成情况。
+每日事项统计：展示用户每日的任务和待办事项数量。
 
-#### 参与贡献
+6. 后台管理系统：
+管理员可以通过 Django 后台管理系统对用户、装备、任务等数据进行增删改查操作。
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+#### 项目结构
+###主要文件夹说明
+src/: 项目的主要源代码。
+docs/: 项目文档和相关说明。
+templates/: Django 模板文件，用于前端页面渲染。
+static/: 静态资源文件，包括 CSS、JavaScript、图片等。
+migrations/: 数据库迁移文件。
+tests/: 单元测试和集成测试代码。
 
+###数据库设计
+核心表：
+UserInfo: 用户信息表，存储用户的基本信息、装备、任务和待办事项。
+EquipmentInfo: 装备信息表，存储装备的属性和描述。
+TaskInfo: 任务信息表，存储每日任务的详细信息。
+TodoInfo: 待办事项表，存储待办事项的详细信息。
 
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
