@@ -5,7 +5,7 @@
 项目功能丰富多样，用户可进行注册登录，创建及展示任务与待办事项，与 AI 角色聊天等。配有数据可视化页面，采用金币和经验值奖励机制，金币可用于购买商城中的装备，并且配置了游戏后台管理系统。
 
 #### 技术栈
-Python、Django、HTML、CSS、JavaScript、Inworld AI
+Python、Django、HTML、CSS、JavaScript
 
 #### 项目功能
 ##### 核心功能
